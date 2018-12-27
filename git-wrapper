@@ -1,0 +1,12 @@
+#!/usr/bin/zsh -
+PATH="/usr/bin:$PATH"
+for ((i = 1; i <= $#; i++)); do
+    a="$argv[i]"
+    if [ -z "$a" ]; then
+	argv[i]=()
+	((i--))
+    elif [ "$a[1]" != '-' ]; then 
+	argv[i]=`cygpath -u "$a"`
+    fi
+done
+exec git "$@"
