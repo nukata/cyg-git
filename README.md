@@ -1,14 +1,14 @@
 # Cyg-Git
 
 This provides a `git` for Windows virtually.
-You need Cygwin only.
+You only need Cygwin.
 
 I just tried the Go plugin of VSCode and found that it requies
 Git for Windows implicitly.
 However, it is redundant since I have already installed Cygwin.
 So I wrote this.
 
-# How to install
+## How to install
 
 - Provide `bash`, `cygpath`, `git` and `zsh` of Cygwin.
 
