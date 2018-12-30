@@ -1,12 +1,31 @@
 #!/usr/bin/zsh -
 PATH="/usr/bin:$PATH"
+wrap_output=""
 for ((i = 1; i <= $#; i++)); do
     a="$argv[i]"
     if [ -z "$a" ]; then
-	argv[i]=()
-	((i--))
+        argv[i]=()
+        ((i--))
+    elif [ "$a" = 'rev-parse' -a $i = 1 ]; then
+        argv[1]="$a"
+        wrap_output=yes
     elif [ "$a[1]" != '-' ]; then 
-	argv[i]=`cygpath -u "$a"`
+        argv[i]=`cygpath -u "$a"`
     fi
 done
-exec git "$@"
+if [ $wrap_output ]; then
+    if a=`git "$@"`; then
+        if [ -z "$a" ]; then
+        elif [ "$a[1]" = '-' ]; then
+            echo $a
+        else
+            cygpath -w "$a"
+        fi
+    else
+        x=$?
+        echo $a
+        exit $x
+    fi
+else
+    exec git "$@"
+fi
