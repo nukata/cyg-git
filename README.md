@@ -11,7 +11,7 @@ So I wrote this proxy and wrapper.
 
 ## Experimental compatibiliy with VSCode 
 
-At first I had implemented the proxy of `git` as a batch file `git.bat`.
+At first I had implemented the proxy for `git` as a batch file `git.bat`.
 It had worked successfully with `go` and its plugin for VSCode.
 However, VSCode itself did not seem to recognize any batch file as `git`.
 Now I tried to make VSCode also recognize the proxy by implementing it with C. 
@@ -44,7 +44,7 @@ $
 
 - Put the resulting `git.exe` and `git-wrapper` of Cyg-Git anywhere on the
   Windows' path.
-  I put them `C:\Users\<my name>\go\bin`.
+  I put them in `C:\Users\<my name>\go\bin`.
   Make sure they have been "`chmod u+x`"-ed.
 
 Now you can use `git` on Windows.
@@ -54,4 +54,25 @@ C:\>git --version
 git version 2.17.0
 
 C:\>
+```
+
+
+## Appendix: Proxy for GCC
+
+*Go*'s [`cgo`](https://github.com/golang/go/wiki/cgo) on Windows needs mingw-w64 gcc as `gcc`.
+Put the following `gcc.bat` in `C:\Users\<your name>\go\bin`.
+
+```DOS
+@echo off
+PATH C:\cygwin64\bin;%PATH%
+C:\cygwin64\bin\x86_64-w64-mingw32-gcc %*
+```
+
+Then `go build` will use `C:\cygwin64\bin\x86_64-w64-mingw32-gcc` as `gcc`.
+I have successfully built `fyne_demo` in [fyne-io/fyne](https://github.com/fyne-io/fyne) with it.
+
+```
+C:\Users\suzuki\go\src\fyne.io\fyne\cmd\fyne_demo>go build -ldflags -H=windowsgui
+
+C:\Users\suzuki\go\src\fyne.io\fyne\cmd\fyne_demo>fyne_demo.exe
 ```
