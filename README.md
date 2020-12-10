@@ -27,11 +27,11 @@ It is just an experiment currently but it seems to work fairly well.
   modify the path name `C:/cygwin64/bin/bash` in `git.c` of Cyg-Git
   accordingly.
 
-- compile the `git.c` with `x86_64-w64-ming32-gcc -o git`.
+- compile the `git.c` with `x86_64-w64-mingw32-gcc -o git`.
   Make sure the resulting `git.exe` is independent from `cygwin1.dll`.
 
 ```
-$ x86_64-w64-ming32-gcc -o git git.c
+$ x86_64-w64-mingw32-gcc -o git git.c
 $ ls -l git.exe
 -rwxr-xr-x 1 suzuki None 400412 Dec 30 18:44 git.exe
 $ ldd ./git.exe
