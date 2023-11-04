@@ -19,7 +19,7 @@ if [ $wrap_output ]; then
         elif [ "$a[1]" = '-' ]; then
             echo $a
         else
-            cygpath -w "$a"
+            cygpath -w "${(@f)a}"
         fi
     else
         x=$?
